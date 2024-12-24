@@ -12,14 +12,12 @@
             flex-direction: column;
             height: 100vh;
         }
-        /* Top Menu Bar */
         .menu-bar {
             background: #333;
             color: white;
             padding: 10px;
             display: flex;
             justify-content: space-between;
-            align-items: center;
         }
         .menu-bar .menu {
             display: flex;
@@ -30,7 +28,6 @@
             text-decoration: none;
             cursor: pointer;
         }
-        /* Container */
         .container {
             display: flex;
             flex-grow: 1;
@@ -96,6 +93,9 @@
             padding: 5px 10px;
             cursor: pointer;
         }
+        .close-popup.hidden {
+            display: none;
+        }
         .summary {
             display: none;
             flex-direction: column;
@@ -120,20 +120,19 @@
         </div>
 
         <!-- Right Side Test Steps -->
-        <div class="test-steps" id="test-steps">
-        </div>
+        <div class="test-steps" id="test-steps"></div>
     </div>
 
     <!-- Summary Section -->
     <div class="summary" id="summary-container">
         <h2>Summary</h2>
-        <canvas id="summary-chart" width="400" height="400"></canvas>
+        <canvas id="summary-chart" width="300" height="300"></canvas>
     </div>
 
     <!-- Popup -->
     <div class="popup-overlay" id="popup-overlay" onclick="closePopup()"></div>
     <div class="popup" id="popup">
-        <button class="close-popup" onclick="closePopup()">X</button>
+        <button class="close-popup hidden" id="close-popup" onclick="closePopup()">X</button>
         <div id="popup-content"></div>
     </div>
 
@@ -158,7 +157,6 @@
         };
 
         window.onload = () => {
-            // Show the first test case by default
             const firstTestCase = document.querySelector(".test-case");
             showTestSteps('Test Case 1', firstTestCase);
         };
@@ -179,11 +177,13 @@
             popupContent.innerHTML = `<h3>Table: ${fileName}</h3><p>Dummy content for ${fileName}</p>`;
             document.getElementById('popup-overlay').style.display = 'block';
             document.getElementById('popup').style.display = 'block';
+            document.getElementById('close-popup').classList.remove('hidden');
         }
 
         function closePopup() {
             document.getElementById('popup-overlay').style.display = 'none';
             document.getElementById('popup').style.display = 'none';
+            document.getElementById('close-popup').classList.add('hidden');
         }
 
         function showTestCases() {
