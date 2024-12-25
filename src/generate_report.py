@@ -1,5 +1,6 @@
 import json
 from typing import Literal
+from read_intmi import get_int_files
 from template import get_template
 
 
@@ -21,11 +22,14 @@ def generate_report(test_cases, test_steps_data, test_status_count, output_file)
 
 # Example usage
 if __name__ == "__main__":
+    test_int_data: dict = get_int_files(base_dir="data")
     test_cases: list[tuple[str, str]] = [
         ("TC001", "pass"),
         ("TC002", "fail"),
         ("TC003", "skip"),
     ]
+
+  
 
     test_steps_data: dict[str, list[str]] = {
         "TC001": [
