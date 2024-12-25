@@ -121,9 +121,9 @@
       <div class="container" id="testcases-container">
         <!-- Left Side Test Cases -->
         <div class="test-cases" id="test-cases">
-        <div class="test-case pass" onclick="showTestSteps('Test Case 1', this)">Test Case 1<span>Pass</span></div>
-<div class="test-case fail" onclick="showTestSteps('Test Case 2', this)">Test Case 2<span>Fail</span></div>
-<div class="test-case skip" onclick="showTestSteps('Test Case 3', this)">Test Case 3<span>Skip</span></div>
+        <div class="test-case pass" onclick="showTestSteps('TC001', this)">TC001<span>Pass</span></div>
+<div class="test-case fail" onclick="showTestSteps('TC002', this)">TC002<span>Fail</span></div>
+<div class="test-case skip" onclick="showTestSteps('TC003', this)">TC003<span>Skip</span></div>
 
         </div>
         <!-- Right Side Test Steps -->
@@ -150,12 +150,11 @@
       </div>
     
         <script>
-          const testStepsData = {"Test Case 1": ["Step 1: Do this", "Step 2: <a href='#' onclick=\"openPopup('table1.csv')\">View Table</a>"], "Test Case 2": ["Step 1: Start Process", "Step 2: <a href='#' onclick=\"openPopup('table2.csv')\">View Table</a>"], "Test Case 3": ["Step 1: Check prerequisites", "Step 2: Skipped due to dependencies"]};
+          const testStepsData = {"TC001": ["Step 1: Do this", "Step 2: <a href='#' onclick=\"openPopup('table1.csv')\">View Table</a>"], "TC002": ["Step 1: Start Process", "Step 2: <a href='#' onclick=\"openPopup('table2.csv')\">View Table</a>"], "TC003": ["Step 1: Check prerequisites", "Step 2: Skipped due to dependencies"]};
           const testStatusCount = {"pass": 1, "fail": 1, "skip": 1};
 
           window.onload = () => {
             const firstTestCase = document.querySelector(".test-case");
-            showTestSteps("Test Case 1", firstTestCase);
           };
 
           function showTestSteps(testCaseName, element) {
@@ -173,7 +172,7 @@
 
           function openPopup(fileName) {
             const popupContent = document.getElementById("popup-content");
-            popupContent.innerHTML = `<h3>Table: ${fileName}</h3><p>Dummy content for ${fileName}</p>`;
+            popupContent.innerHTML = `${fileName}`;
             document.getElementById("popup-overlay").style.display = "block";
             document.getElementById("popup").style.display = "block";
             document.getElementById("close-popup").classList.remove("hidden");

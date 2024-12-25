@@ -86,7 +86,6 @@ def get_script_content() -> str:
 
           window.onload = () => {{
             const firstTestCase = document.querySelector(".test-case");
-            showTestSteps("Test Case 1", firstTestCase);
           }};
 
           function showTestSteps(testCaseName, element) {{
@@ -104,7 +103,7 @@ def get_script_content() -> str:
 
           function openPopup(fileName) {{
             const popupContent = document.getElementById("popup-content");
-            popupContent.innerHTML = `<h3>Table: ${{fileName}}</h3><p>Dummy content for ${{fileName}}</p>`;
+            popupContent.innerHTML = `${{fileName}}`;
             document.getElementById("popup-overlay").style.display = "block";
             document.getElementById("popup").style.display = "block";
             document.getElementById("close-popup").classList.remove("hidden");

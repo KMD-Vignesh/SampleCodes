@@ -22,49 +22,49 @@ def generate_html_with_dfs(csv_folder: str, output_file: str) -> None:
 
     # Generate HTML content
     html_content = """
-<!DOCTYPE html>
-<html>
-<head>
-    <title>CSV DataFrames Viewer</title>
-    <style>
-        .button-container {
-            margin-bottom: 20px;
-        }
-        .button-container button {
-            margin-right: 10px;
-            padding: 10px;
-            font-size: 16px;
-        }
-        #table-container {
-            margin-top: 20px;
-        }
-    </style>
-    <script>
-        // Store HTML tables as a JavaScript object
-        const dfTables = """ + str(df_html_tables) + """;
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>CSV DataFrames Viewer</title>
+            <style>
+                .button-container {
+                    margin-bottom: 20px;
+                }
+                .button-container button {
+                    margin-right: 10px;
+                    padding: 10px;
+                    font-size: 16px;
+                }
+                #table-container {
+                    margin-top: 20px;
+                }
+            </style>
+            <script>
+                // Store HTML tables as a JavaScript object
+                const dfTables = """ + str(df_html_tables) + """;
 
-        function showTable(filename) {
-            document.getElementById('table-container').innerHTML = dfTables[filename];
-        }
-    </script>
-</head>
-<body>
-    <div class="button-container">
-"""
+                function showTable(filename) {
+                    document.getElementById('table-container').innerHTML = dfTables[filename];
+                }
+            </script>
+        </head>
+        <body>
+            <div class="button-container">
+        """
 
-    # Add buttons for each CSV file
+        # Add buttons for each CSV file
     for filename in df_html_tables.keys():
         html_content += f'<button onclick="showTable(\'{filename}\')">{filename}</button>\n'
 
-    # Add table container
+            # Add table container
     html_content += """
-    </div>
-    <div id="table-container">
-        <p>Select a dataset to view the table.</p>
-    </div>
-</body>
-</html>
-"""
+            </div>
+            <div id="table-container">
+                <p>Select a dataset to view the table.</p>
+            </div>
+        </body>
+        </html>
+        """
 
     # Write the HTML file
     with open(output_file, "w", encoding="utf-8") as f:
@@ -75,4 +75,4 @@ def generate_html_with_dfs(csv_folder: str, output_file: str) -> None:
 # Example usage
 csv_folder = "data"
 output_file = "html/df-html.html"
-generate_html_with_dfs(csv_folder, output_file)
+generate_html_with_dfs(csv_folder=csv_folder, output_file=output_file)
