@@ -41,7 +41,7 @@ def generate_html_with_dfs(csv_folder: str, output_file: str) -> None:
     </style>
     <script>
         // Store HTML tables as a JavaScript object
-        const dfTables = """ + str(df_html_tables).replace("'", '"') + """;
+        const dfTables = """ + str(df_html_tables) + """;
 
         function showTable(filename) {
             document.getElementById('table-container').innerHTML = dfTables[filename];
@@ -73,6 +73,6 @@ def generate_html_with_dfs(csv_folder: str, output_file: str) -> None:
     print(f"HTML file generated: {output_file}")
 
 # Example usage
-csv_folder = "path_to_csv_folder"
-output_file = "output.html"
+csv_folder = "data"
+output_file = "html/df-html.html"
 generate_html_with_dfs(csv_folder, output_file)

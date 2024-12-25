@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV DataFrames Viewer</title>
+    <style>
+        .button-container {
+            margin-bottom: 20px;
+        }
+        .button-container button {
+            margin-right: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        #table-container {
+            margin-top: 20px;
+        }
+    </style>
+    <script>
+        // Store HTML tables as a JavaScript object
+        const dfTables = {'sample1': '<table border="1" class="dataframe">\n  <thead>\n    <tr style="text-align: right;">\n      <th>id</th>\n      <th>name</th>\n      <th>status</th>\n    </tr>\n  </thead>\n  <tbody>\n    <tr>\n      <td>1</td>\n      <td>TC1</td>\n      <td>Pass</td>\n    </tr>\n    <tr>\n      <td>2</td>\n      <td>TC2</td>\n      <td>Fail</td>\n    </tr>\n  </tbody>\n</table>'};
+
+        function showTable(filename) {
+            document.getElementById('table-container').innerHTML = dfTables[filename];
+        }
+    </script>
+</head>
+<body>
+    <div class="button-container">
+<button onclick="showTable('sample1')">sample1</button>
+
+    </div>
+    <div id="table-container">
+        <p>Select a dataset to view the table.</p>
+    </div>
+</body>
+</html>
