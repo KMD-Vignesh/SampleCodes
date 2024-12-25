@@ -1,6 +1,6 @@
 import json
 from typing import Literal
-from read_intmi import get_int_data, get_int_files
+from read_intmi import get_int_data
 from template import get_template
 
 

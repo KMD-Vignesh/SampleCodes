@@ -5,6 +5,7 @@ def get_template() -> str:
       <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
         <title>Test Report</title>
         """
         + get_styles()
@@ -107,6 +108,21 @@ def get_script_content() -> str:
             document.getElementById("popup-overlay").style.display = "block";
             document.getElementById("popup").style.display = "block";
             document.getElementById("close-popup").classList.remove("hidden");
+          }}
+
+          function openPopup2(testCaseId, fileName) {{
+            const popupContent = document.getElementById("popup-content");
+            if (testStepsData[testCaseId] && testStepsData[testCaseId][fileName]) {{
+              const tableHTML = testStepsData[testCaseId][fileName];
+              popupContent.innerHTML = tableHTML;
+              document.getElementById("popup-overlay").style.display = "block";
+              document.getElementById("popup").style.display = "block";
+              document.getElementById("close-popup").classList.remove("hidden");
+            }} else {{
+              popupContent.innerHTML = `<p>Error: No data found for Test Case "${{testCaseId}}" and File "${{fileName}}".</p>`;
+              document.getElementById("popup-overlay").style.display = "block";
+              document.getElementById("popup").style.display = "block";
+            }}
           }}
 
           function closePopup() {{
@@ -245,7 +261,7 @@ def get_styles() -> str:
         z-index: 1001;
       }}
       .close-popup {{
-        float: right;
+        display: flex;
         background: red;
         color: white;
         border: none;
