@@ -38,18 +38,6 @@ if __name__ == "__main__":
   
     test_steps_data: dict[str, list[str]] = get_int_data(base_dir="data")
 
-    # test_steps_data: dict[str, list[str]] = {
-    #     "TC001": [
-    #         "Step 1: Do this",
-    #         "Step 2: <a href='#' onclick=\"openPopup('table1.csv')\">View Table</a>",
-    #     ],
-    #     "TC002": [
-    #         "Step 1: Start Process",
-    #         "Step 2: <a href='#' onclick=\"openPopup('table2.csv')\">View Table</a>",
-    #     ],
-    #     "TC003": ["Step 1: Check prerequisites", "Step 2: Skipped due to dependencies"],
-    # }
-
     test_status_count: dict[str, int] = {}
     for _, status in test_cases:
         test_status_count[status] = test_status_count.get(status, 0) + 1

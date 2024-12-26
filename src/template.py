@@ -53,7 +53,7 @@ def get_popup_section() -> str:
     popup_section_content = """
       <!-- Popup -->
       <div class="popup-overlay" id="popup-overlay" onclick="closePopup()"></div>
-      <div class="popup" id="popup">
+      <div class="popup hidden" id="popup">
       <button
       class="close-popup hidden"
       id="close-popup"
@@ -259,6 +259,9 @@ def get_styles() -> str:
         max-height: 80%;
         overflow: auto;
         z-index: 1001;
+      }}
+      .popup.hidden {{
+        display: none;
       }}
       .close-popup {{
         display: flex;
