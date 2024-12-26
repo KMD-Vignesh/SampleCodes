@@ -26,6 +26,13 @@ if __name__ == "__main__":
         ("TC001", "pass"),
         ("TC002", "fail"),
         ("TC003", "skip"),
+        ("TC004", "pass"),
+        ("TC005", "pass"),
+        ("TC006", "skip"),
+        ("TC007", "pass"),
+        ("TC008", "fail"),
+        ("TC009", "pass"),
+
     ]
 
   
@@ -43,11 +50,9 @@ if __name__ == "__main__":
     #     "TC003": ["Step 1: Check prerequisites", "Step 2: Skipped due to dependencies"],
     # }
 
-    test_status_count: dict[str, int] = {
-        "pass": 1,
-        "fail": 1,
-        "skip": 1,
-    }
+    test_status_count: dict[str, int] = {}
+    for _, status in test_cases:
+        test_status_count[status] = test_status_count.get(status, 0) + 1
 
     generate_report(
         test_cases=test_cases,
