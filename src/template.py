@@ -69,11 +69,29 @@ def get_popup_section() -> str:
 
 def get_menu_bar() -> str:
     menu_bar_content = """
-      <div class="menu-bar">
-      <div class="menu">
-      <a href="#" id="testcases-link" onclick="showTestCases()">Test Cases</a>
-      <a href="#" id="summary-link" onclick="showSummary()">Summary</a>
-      </div>
+     <div class="menu-bar">
+        <div class="menu">
+          <a href="#" id="testcases-link" onclick="showTestCases()"><i class="fa-solid fa-list-ul"></i> Test Cases </a>
+          <a href="#" id="summary-link" onclick="showSummary()"><i class="fa-solid fa-chart-column"></i> Summary </a>
+          <div>
+            <label for="status-filter">Status : </label>
+            <select id="status-filter" onchange="filterTestCases()">
+                <option value="all">All</option>
+                <option value="pass">Pass</p></option>
+                <option value="fail">Fail</option>
+                <option value="skip">Skip</option>
+            </select>
+          </div>
+          <div>
+            <label for="search-box">Search : </label>
+            <input type="text" id="search-box" oninput="filterTestCases()" placeholder="Enter Test Case Name">
+          </div>
+         
+          </div>
+          <div class="logo">
+            <img src="https://av.sc.com/corp-en/nr/content/images/sc-lock-up-english-grey-rgb.png" alt="Website Logo">
+          </div>
+        </div>
       </div>
     """
     return menu_bar_content
@@ -165,6 +183,28 @@ def get_script_content() -> str:
               }},
             }});
           }}
+          function filterTestCases() {{
+            const statusFilter = document.getElementById('status-filter').value;
+            const searchBox = document.getElementById('search-box').value.toLowerCase();
+            const testCases = document.querySelectorAll('.test-case');
+
+            testCases.forEach(testCase => {{
+                const status = testCase.classList.contains('pass') ? 'pass' :
+                               testCase.classList.contains('fail') ? 'fail' :
+                               testCase.classList.contains('skip') ? 'skip' : '';
+
+                const name = testCase.textContent.toLowerCase();
+
+                const matchesStatus = (statusFilter === 'all' || status === statusFilter);
+                const matchesName = name.includes(searchBox);
+
+                if (matchesStatus && matchesName) {{
+                    testCase.style.display = '';
+                }} else {{
+                    testCase.style.display = 'none';
+                }}
+            }});
+        }}
         </script>
 
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -183,7 +223,7 @@ def get_styles() -> str:
         height: 100vh;
       }}
       .menu-bar {{
-        background: #333;
+        background: #009879;
         color: white;
         padding: 10px;
         display: flex;
@@ -191,7 +231,7 @@ def get_styles() -> str:
       }}
       .menu-bar .menu {{
         display: flex;
-        gap: 20px;
+        gap: 42px;
       }}
       .menu-bar .menu a {{
         color: white;
@@ -304,7 +344,7 @@ def get_styles() -> str:
       }}
 
       .button1 {{
-        background-color: #04AA6D;
+        background-color: #009879;
         color: white;
         border: 2px solid #04AA6D;
       }}
@@ -354,6 +394,7 @@ def get_styles() -> str:
         font-family: Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         width: 100%;
+        font-size:0.7em;
       }}
 
       .tableframe td, .tableframe th {{
@@ -369,12 +410,21 @@ def get_styles() -> str:
         padding-top: 3px;
         padding-bottom: 3px;
         text-align: center;
-        background-color: #04AA6D;
+        background-color: #009879;
         color: white;
       }}
       .case-head {{
-      color:red;
+      color:#009879;
       }}
+       .logo {{
+            display: flex;
+            background-color: white;
+            justify-content: flex-end;
+            border-radius: 10px;
+        }}
+      .logo img {{
+            height: 26px;
+        }}
     </style>
     """
     return style_content
