@@ -18,7 +18,7 @@ def get_int_files(base_dir: str) -> dict[str, dict[str, pd.DataFrame]]:
         csv_files_with_ctime.sort(key=lambda x: x[2])
         for file_name, file_path, _ in csv_files_with_ctime:
             df: pd.DataFrame = pd.read_csv(filepath_or_buffer=file_path)
-            csv_content: str = "<p></p><button onclick='openPopup(`"+f"""{str(df.to_html(index=False, border=2)).replace("'",'"')}"""+"`)'>View CSV <i class='fa-regular fa-eye'></i></button><p></p>"
+            csv_content: str = "<p></p><button class='button button1' onclick='openPopup(`"+f"""{str(df.to_html(index=False, border=2, classes=["tableframe"])).replace("'",'"')}"""+"`)'>View CSV <i class='fa-regular fa-eye'></i></button><p></p>"
             csv_files_data[str(file_name).split(".csv")[0]] = csv_content
         testcase_data[testcase_folder] = csv_files_data
     return testcase_data

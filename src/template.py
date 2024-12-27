@@ -55,11 +55,11 @@ def get_popup_section() -> str:
       <div class="popup-overlay" id="popup-overlay" onclick="closePopup()"></div>
       <div class="popup hidden" id="popup">
       <button
-      class="close-popup hidden"
+      class="button button3 close-popup hidden"
       id="close-popup"
       onclick="closePopup()"
       >
-      X
+      Close X
       </button>
       <div id="popup-content"></div>
       </div>
@@ -98,7 +98,7 @@ def get_script_content() -> str:
             const steps = testStepsData[testCaseName] || ["No steps available."];
             const stepDiv = document.getElementById("test-steps");
             stepDiv.innerHTML =
-              `<h2>${{testCaseName}}</h2>` +
+              `<h2 class="case-head">${{testCaseName}}</h2>` +
               steps.map((step) => `<div class="test-step">${{step}}</div>`).join("");
           }}
 
@@ -264,6 +264,10 @@ def get_styles() -> str:
         display: none;
       }}
       .close-popup {{
+        position: sticky;
+        top: 0;
+        left: 0;
+        z-index: 10;
         display: flex;
         background: red;
         color: white;
@@ -278,6 +282,98 @@ def get_styles() -> str:
         display: none;
         flex-direction: column;
         padding: 10px;
+      }}
+
+      .button {{
+        background-color: #04AA6D; /* Green */
+        border: none;
+        color: white;
+        padding: 5px 8px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 13px;
+        margin-bottom: 4px;
+        transition-duration: 0.4s;
+        cursor: pointer;
+      }}
+
+      .button1:hover {{
+        background-color: white; 
+        color: black; 
+      }}
+
+      .button1 {{
+        background-color: #04AA6D;
+        color: white;
+        border: 2px solid #04AA6D;
+      }}
+
+      .button2 {{
+        background-color: white; 
+        color: black; 
+        border: 2px solid #008CBA;
+      }}
+
+      .button2:hover {{
+        background-color: #008CBA;
+        color: white;
+      }}
+
+      .button3:hover {{
+        background-color: white; 
+        color: black; 
+      }}
+
+      .button3 {{
+        background-color: #f44336;
+        color: white;
+        border: 2px solid #f44336;
+      }}
+
+      .button4 {{
+        background-color: white;
+        color: black;
+        border: 2px solid #e7e7e7;
+      }}
+
+      .button4:hover {{background-color: #e7e7e7;}}
+
+      .button5 {{
+        background-color: white;
+        color: black;
+        border: 2px solid #555555;
+      }}
+
+      .button5:hover {{
+        background-color: #555555;
+        color: white;
+      }}
+
+      .tableframe {{
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }}
+
+      .tableframe td, .tableframe th {{
+        border: 1px solid #ddd;
+        padding: 8px;
+      }}
+
+      .tableframe tr:nth-child(even){{background-color: #f2f2f2;}}
+
+      .tableframe tr:hover {{background-color: #ddd;}}
+
+      .tableframe th {{
+        padding-top: 3px;
+        padding-bottom: 3px;
+        text-align: center;
+        background-color: #04AA6D;
+        color: white;
+      }}
+      .case-head {{
+      color:red;
       }}
     </style>
     """
