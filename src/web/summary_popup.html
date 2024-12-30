@@ -1,0 +1,20 @@
+<!-- Summary Section -->
+<div class="summary" id="summary-container">
+  <div class="summary-content">
+    {summary_table}
+  </div>
+  <canvas id="summary-chart"></canvas>
+</div>
+
+<!-- Popup -->
+<div class="popup-overlay" id="popup-overlay" onclick="closePopup()"></div>
+<div class="popup hidden" id="popup">
+  <button
+    class="button button3 close-popup hidden"
+    id="close-popup"
+    onclick="closePopup()"
+  >
+    Close X
+  </button>
+  <div id="popup-content"></div>
+</div>

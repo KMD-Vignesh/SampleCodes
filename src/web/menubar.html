@@ -1,0 +1,23 @@
+<div class="menu-bar">
+    <div class="menu">
+      <a href="#" id="testcases-link" onclick="showTestCases()"><i class="fa-solid fa-list-ul"></i> Test Cases </a>
+      <div>
+        <label for="status-filter">Status : </label>
+        <select id="status-filter" onchange="filterTestCases()">
+            <option value="all">All</option>
+            <option value="pass">Pass</p></option>
+            <option value="fail">Fail</option>
+            <option value="skip">Skip</option>
+        </select>
+      </div>
+      <div>
+        <label for="search-box">Search : </label>
+        <input type="text" id="search-box" oninput="filterTestCases()" placeholder="Enter Test Case Name">
+      </div>
+      <a href="#" id="summary-link" onclick="showSummary()"><i class="fa-solid fa-chart-column"></i> Summary </a>
+      </div>
+      <div class="logo">
+        <img src="https://login.zscloud.net/__zsig/f167WqMcrS45r" alt="Website Logo">
+      </div>
+    </div>
+  </div>
