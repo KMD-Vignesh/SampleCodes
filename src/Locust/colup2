@@ -21,16 +21,20 @@ def update_csv_data(reference_csv_path, base_folder, log_file_path, table_name, 
                         "file": file_path,
                         "mismatched_values": missing_values.tolist()
                     })
-                
-                # Add missing columns from reference_df
+
+                # Add missing columns with values from reference_df
                 for column in reference_df.columns:
                     if column not in target_df.columns:
-                        target_df[column] = None
+                        target_df[column] = target_df["transactTime"].map(
+                            reference_df.set_index("transactTime")[column]
+                        )
 
                 # Remove excess columns not in reference_df
-                target_df = target_df[reference_df.columns.intersection(target_df.columns).tolist()]
+                reference_columns = set(reference_df.columns)
+                excess_columns = set(target_df.columns) - reference_columns
+                target_df.drop(columns=list(excess_columns), inplace=True)
 
-                # Update necessary columns based on column_mapping
+                # Update specific columns based on column_mapping
                 columns_to_update = column_mapping.get(table_name, [])
                 for column in columns_to_update:
                     if column in reference_df.columns and column in target_df.columns:
@@ -38,6 +42,7 @@ def update_csv_data(reference_csv_path, base_folder, log_file_path, table_name, 
                             reference_df.set_index("transactTime")[column]
                         )
 
+                # Save the updated CSV
                 target_df.to_csv(file_path, index=False)
 
     # Log mismatched transactTime
