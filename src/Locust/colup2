@@ -1,0 +1,62 @@
+import os
+import pandas as pd
+
+def update_csv_data(reference_csv_path, base_folder, log_file_path, table_name, date, reference_column):
+    reference_df = pd.read_csv(reference_csv_path)
+    mismatched_log = []
+
+    for root, _, files in os.walk(base_folder):
+        for file_name in files:
+            if file_name.endswith(".csv") and "quote" in file_name:
+                file_path = os.path.join(root, file_name)
+                target_df = pd.read_csv(file_path)
+                
+                missing_values = target_df.loc[
+                    ~target_df[reference_column].isin(reference_df[reference_column]), 
+                    reference_column
+                ]
+                if not missing_values.empty:
+                    mismatched_log.append({
+                        "file": file_path,
+                        "mismatched_values": missing_values.tolist()
+                    })
+                
+                updated_df = pd.merge(
+                    target_df, 
+                    reference_df, 
+                    on=reference_column, 
+                    how='left', 
+                    suffixes=('', '_ref')
+                )
+                
+                for column in reference_df.columns:
+                    if column != reference_column:
+                        if f"{column}_ref" in updated_df.columns:
+                            updated_df[column] = updated_df[f"{column}_ref"]
+                            updated_df.drop(columns=[f"{column}_ref"], inplace=True)
+                        elif column not in updated_df.columns:
+                            updated_df[column] = reference_df[column]
+                
+                updated_df.to_csv(file_path, index=False)
+
+    with open(log_file_path, "w") as log_file:
+        for entry in mismatched_log:
+            log_file.write(f"File: {entry['file']}\n")
+            log_file.write(f"Mismatched {reference_column}: {', '.join(map(str, entry['mismatched_values']))}\n\n")
+
+if __name__ == "__main__":
+    reference_csv_path = "path/to/full_data.csv"
+    base_folder = "path/to/base/folder"
+    log_file_path = "path/to/mismatch_log.txt"
+    table_name = "dxTrade"
+    date = "20231114"
+    reference_column = "transactTime"
+    
+    update_csv_data(
+        reference_csv_path=reference_csv_path, 
+        base_folder=base_folder, 
+        log_file_path=log_file_path, 
+        table_name=table_name, 
+        date=date, 
+        reference_column=reference_column
+    )
