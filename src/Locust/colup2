@@ -11,8 +11,9 @@ def update_csv_data(reference_csv_path, base_folder, log_file_path, table_name, 
                 file_path = os.path.join(root, file_name)
                 target_df = pd.read_csv(file_path)
 
+                # Find mismatched transactTime
                 missing_values = target_df.loc[
-                    ~target_df["transactTime"].isin(reference_df["transactTime"]), 
+                    ~target_df["transactTime"].isin(reference_df["transactTime"]),
                     "transactTime"
                 ]
                 if not missing_values.empty:
@@ -21,22 +22,25 @@ def update_csv_data(reference_csv_path, base_folder, log_file_path, table_name, 
                         "mismatched_values": missing_values.tolist()
                     })
                 
+                # Add missing columns from reference_df
+                for column in reference_df.columns:
+                    if column not in target_df.columns:
+                        target_df[column] = None
+
+                # Remove excess columns not in reference_df
+                target_df = target_df[reference_df.columns.intersection(target_df.columns).tolist()]
+
+                # Update necessary columns based on column_mapping
                 columns_to_update = column_mapping.get(table_name, [])
-                updated_df = target_df.copy()
-
                 for column in columns_to_update:
-                    if column in reference_df.columns:
-                        if column in updated_df.columns:
-                            updated_df[column] = updated_df["transactTime"].map(
-                                reference_df.set_index("transactTime")[column]
-                            )
-                        else:
-                            updated_df[column] = updated_df["transactTime"].map(
-                                reference_df.set_index("transactTime")[column]
-                            )
+                    if column in reference_df.columns and column in target_df.columns:
+                        target_df[column] = target_df["transactTime"].map(
+                            reference_df.set_index("transactTime")[column]
+                        )
 
-                updated_df.to_csv(file_path, index=False)
+                target_df.to_csv(file_path, index=False)
 
+    # Log mismatched transactTime
     with open(log_file_path, "w") as log_file:
         for entry in mismatched_log:
             log_file.write(f"File: {entry['file']}\n")
