@@ -45,11 +45,11 @@ def update_csv_data(reference_csv_path, base_folder, log_file_path, table_name, 
             log_file.write(f"Mismatched {reference_column}: {', '.join(map(str, entry['mismatched_values']))}\n\n")
 
 if __name__ == "__main__":
-    reference_csv_path = "path/to/full_data.csv"
-    base_folder = "path/to/base/folder"
-    log_file_path = "path/to/mismatch_log.txt"
-    table_name = "dxTrade"
-    date = "20231114"
+    reference_csv_path = "data/reference/20231114/dxQuote_20231114.csv"
+    file_name = os.path.basename(reference_csv_path)
+    table_name, date = file_name.split(".csv")[0].split("_")
+    base_folder = "data/base_dir"
+    log_file_path = f"{table_name}_{date}_mismatch_log.txt"
     reference_column = "transactTime"
     
     update_csv_data(
