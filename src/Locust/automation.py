@@ -60,12 +60,14 @@ def create_dynamic_classes_and_tests():
         scenario = test_case["scenario"]
 
         # Dynamically create a class for each scenario if it doesn't exist
-        if scenario not in classes:
-            classes[scenario] = type(scenario, (object,), {})  # Create a new class dynamically
+        class_name = f"Test{scenario}"  # Classes must start with 'Test' for pytest
+        if class_name not in classes:
+            classes[class_name] = type(class_name, (object,), {})  # Create a new class dynamically
 
         # Create a test function and add it to the class
         test_func = create_test_function(test_case)
-        setattr(classes[scenario], test_case["name"], test_func)
+        test_func_name = f"test_{test_case['name']}"  # Test methods must start with 'test_'
+        setattr(classes[class_name], test_func_name, test_func)
 
     # Return the dynamically created classes
     return classes
