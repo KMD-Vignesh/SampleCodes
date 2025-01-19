@@ -6,9 +6,9 @@ from docx.shared import Inches
 
 # Paths
 testcase_excel = "test_config.csv"  # Path to the Test Case Excel
-base_dir = r"data\base_dir\MLEGALAlertData"  # Base directory containing test folders
+base_dir = r"data\"  # Base directory containing test folders
 output_docx = "test_case_output.docx"  # Path to save the Word document
-file_patterns = ["dxQuote", "dxTrade"]  # Replace with your file patterns to filter files
+file_patterns = ["", ""]  # Replace with your file patterns to filter files
 
 # Read the test case Excel file
 testcase_df = pd.read_csv(testcase_excel)  # Assuming the test_config.csv is a CSV file
