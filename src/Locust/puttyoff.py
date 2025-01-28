@@ -1,10 +1,12 @@
 import paramiko
+import select
+import sys
 
 def ssh_connect(hostname, port, username, password):
     # Create an SSH client
     client = paramiko.SSHClient()
     
-    # Automatically add the server's host key (this is insecure, see note below)
+    # Automatically add the server's host key (insecure, use with caution)
     client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     
     # Connect to the server
@@ -12,41 +14,38 @@ def ssh_connect(hostname, port, username, password):
     
     return client
 
-def run_commands(client, commands):
-    # Open a session
-    stdin, stdout, stderr = client.exec_command(commands)
-    
-    # Read the output and error
-    output = stdout.read().decode()
-    error = stderr.read().decode()
-    
-    # Print the output and error
-    if output:
-        print("Output:")
-        print(output)
-    if error:
-        print("Error:")
-        print(error)
-
 def interactive_shell(client):
-    # Open an interactive shell
+    # Open an interactive shell session
     shell = client.invoke_shell()
     
+    # Set the shell to non-blocking mode
+    shell.setblocking(0)
+    
+    print("Interactive SSH shell opened. Type commands or 'exit' to quit.")
+    
     while True:
-        # Get user input
-        command = input("$ ")
+        # Check for user input
+        if select.select([sys.stdin], [], [], 0)[0]:
+            user_input = sys.stdin.readline().strip()
+            
+            if user_input.lower() in ['exit', 'quit']:
+                print("Exiting interactive shell.")
+                break
+            
+            # Send the command to the shell
+            shell.send(user_input + "\n")
         
-        if command.lower() in ['exit', 'quit']:
-            break
-        
-        # Send the command to the shell
-        shell.send(command + "\n")
-        
-        # Receive the output
-        while not shell.recv_ready():
-            pass
-        output = shell.recv(1024).decode()
-        print(output, end='')
+        # Check for output from the shell
+        while True:
+            if select.select([shell], [], [], 0)[0]:
+                # Read the output
+                output = shell.recv(1024).decode('utf-8', errors='ignore')
+                if not output:
+                    break
+                # Print the output in real-time
+                print(output, end='')
+            else:
+                break
     
     # Close the shell
     shell.close()
@@ -61,16 +60,7 @@ def main():
     # Connect to the server
     client = ssh_connect(hostname, port, username, password)
     
-    # Run a set of commands
-    commands = """
-    echo "Running some commands..."
-    ls -la
-    whoami
-    """
-    run_commands(client, commands)
-    
     # Enter interactive shell
-    print("Entering interactive shell. Type 'exit' or 'quit' to exit.")
     interactive_shell(client)
     
     # Close the connection
