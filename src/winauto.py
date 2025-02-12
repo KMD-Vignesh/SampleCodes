@@ -2,12 +2,13 @@ import ctypes
 import time
 import random
 
-# Constants for mouse event
-MOUSEEVENTF_MOVE = 0x0001
+# Define the POINT structure for mouse position
+class POINT(ctypes.Structure):
+    _fields_ = [("x", ctypes.c_long), ("y", ctypes.c_long)]
 
 def move_mouse():
     # Get the current mouse position
-    cursor = ctypes.wintypes.POINT()
+    cursor = POINT()
     ctypes.windll.user32.GetCursorPos(ctypes.byref(cursor))
     
     # Move the mouse slightly
