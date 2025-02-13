@@ -13,6 +13,9 @@ with open(JSON_FILE_PATH, 'r') as json_file:
 # Convert JSON data to a string
 json_string = json.dumps(data, indent=4)
 
+# Escape special characters in JSON for embedding in HTML
+json_string_escaped = json_string.replace('{', '{{').replace('}', '}}')
+
 # HTML template with JavaScript and CSS for syntax highlighting
 html_content = f"""
 <!DOCTYPE html>
@@ -68,7 +71,7 @@ html_content = f"""
 
     <script>
         // JSON data
-        const jsonData = {json_string};
+        const jsonData = {json_string_escaped};
 
         // Function to highlight JSON syntax
         function highlightJson(json) {{
@@ -91,7 +94,7 @@ html_content = f"""
                     }}
                     return `<span class="${{cls}}">${{match}}</span>`;
                 }})
-                .replace(/\{|\}|\[|\]/g, (match) => `<span class="json-bracket">${{match}}</span>`);
+                .replace(/\{{|\}}|\[|\]/g, (match) => `<span class="json-bracket">${{match}}</span>`);
         }}
 
         // Display highlighted JSON
