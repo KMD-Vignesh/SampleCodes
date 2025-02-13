@@ -1,5 +1,5 @@
 function highlightJson(json) {
-    const jsonString = JSON.stringify(json, null, 4);
+    const  = JSON.stringify(json, null, 4);
     return jsonString
         .replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(\.\d*)?([eE][+-]?\d+)?/g, (match) => {
             let cls = 'json-value';
