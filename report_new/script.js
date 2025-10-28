@@ -5,37 +5,37 @@ function showTab(tabName) {
     document.querySelector(`[onclick="showTab('${tabName}')"]`).classList.add('active');
 }
 
-function drawPieChart(passed, failed) {
-    const canvas = document.getElementById('pieChart');
-    const ctx = canvas.getContext('2d');
-    const total = passed + failed;
+function selectTestcase(testId, testName, author, description, status, validation) {
+    document.querySelectorAll('.testcase-item').forEach(item => item.classList.remove('active'));
+    document.getElementById('item-' + testId).classList.add('active');
     
-    if (total === 0) return;
-    
-    const centerX = canvas.width / 2;
-    const centerY = canvas.height / 2;
-    const radius = 80;
-    
-    const passAngle = (passed / total) * 2 * Math.PI;
-    
-    // Clear canvas
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // Draw pass slice
-    ctx.beginPath();
-    ctx.moveTo(centerX, centerY);
-    ctx.arc(centerX, centerY, radius, 0, passAngle);
-    ctx.closePath();
-    ctx.fillStyle = '#2e7d32';
-    ctx.fill();
-    
-    // Draw fail slice
-    ctx.beginPath();
-    ctx.moveTo(centerX, centerY);
-    ctx.arc(centerX, centerY, radius, passAngle, 2 * Math.PI);
-    ctx.closePath();
-    ctx.fillStyle = '#d32f2f';
-    ctx.fill();
+    const statusClass = status.toLowerCase() === 'pass' ? 'pass' : 'fail';
+    document.getElementById('testcase-details').innerHTML = `
+        <div class="detail-row">
+            <div class="detail-label">Test Case ID</div>
+            <div class="detail-value">${testId}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Test Case Name</div>
+            <div class="detail-value">${testName}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Author</div>
+            <div class="detail-value">${author}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Description</div>
+            <div class="detail-value">${description}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Status</div>
+            <div class="detail-value"><span class="status-badge ${statusClass}">${status.toUpperCase()}</span></div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Validation Parameter</div>
+            <div class="detail-value">${validation}</div>
+        </div>
+    `;
 }
 
 document.addEventListener('DOMContentLoaded', function() {

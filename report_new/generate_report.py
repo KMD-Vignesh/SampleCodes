@@ -11,11 +11,15 @@ def read_csv_data(filename):
 def generate_html_report(csv_file, output_file):
     data = read_csv_data(csv_file)
     
-    # Read CSS file
+    # Read CSS and JS files
     script_dir = os.path.dirname(os.path.abspath(__file__))
     css_path = os.path.join(script_dir, 'styles.css')
+    js_path = os.path.join(script_dir, 'script.js')
+    
     with open(css_path, 'r') as f:
         css_content = f.read()
+    with open(js_path, 'r') as f:
+        js_content = f.read()
     
     # Calculate statistics
     total_tests = len(data)
@@ -108,52 +112,58 @@ def generate_html_report(csv_file, output_file):
             </div>
             
             <div id="testcases" class="tab-content hidden">
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Test ID</th>
-                                <th>Test Name</th>
-                                <th>Description</th>
-                                <th>Author</th>
-                                <th>Status</th>
-                                <th>Validation</th>
-                            </tr>
-                        </thead>
-                        <tbody>"""
+                <div class="testcase-container">
+                    <div class="testcase-list">"""
     
-    for row in data:
-        status_class = 'status-pass' if row['status'].lower() == 'pass' else 'status-fail'
+    for i, row in enumerate(data):
+        status_class = 'pass' if row['status'].lower() == 'pass' else 'fail'
+        onclick_params = f"'{row['testcase_id']}', '{row['testcase_name']}', '{row['author']}', '{row['description']}', '{row['status']}', '{row['validation_parameter']}'"
+        active_class = 'active' if i == 0 else ''
+        
         html_content += f"""
-                            <tr>
-                                <td>{row['testcase_id']}</td>
-                                <td>{row['testcase_name']}</td>
-                                <td>{row['description']}</td>
-                                <td>{row['author']}</td>
-                                <td class="{status_class}">{row['status'].upper()}</td>
-                                <td>{row['validation_parameter']}</td>
-                            </tr>"""
+                        <div class="testcase-item {status_class} {active_class}" id="item-{row['testcase_id']}" onclick="selectTestcase({onclick_params})">
+                            <div class="testcase-id">{row['testcase_id']}</div>
+                            <div class="testcase-status status-{status_class}">{row['status'].upper()}</div>
+                        </div>"""
     
-    html_content += """
-                        </tbody>
-                    </table>
+    # Default details for first test case
+    first_test = data[0] if data else {}
+    first_status_class = 'pass' if first_test.get('status', '').lower() == 'pass' else 'fail'
+    
+    html_content += f"""
+                    </div>
+                    <div class="testcase-details" id="testcase-details">
+                        <div class="detail-row">
+                            <div class="detail-label">Test Case ID</div>
+                            <div class="detail-value">{first_test.get('testcase_id', '')}</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Test Case Name</div>
+                            <div class="detail-value">{first_test.get('testcase_name', '')}</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Author</div>
+                            <div class="detail-value">{first_test.get('author', '')}</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Description</div>
+                            <div class="detail-value">{first_test.get('description', '')}</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Status</div>
+                            <div class="detail-value"><span class="status-badge {first_status_class}">{first_test.get('status', '').upper()}</span></div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Validation Parameter</div>
+                            <div class="detail-value">{first_test.get('validation_parameter', '')}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     
-    <script>
-        function showTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.getElementById(tabName).classList.remove('hidden');
-            document.querySelector('[onclick="showTab(\\''+tabName+'\\')"]').classList.add('active');
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            showTab('summary');
-        });
-    </script>
+    <script>{js_content}</script>
 </body>
 </html>"""
     

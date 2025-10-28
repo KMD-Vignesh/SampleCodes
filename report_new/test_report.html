@@ -145,6 +145,22 @@ th {
     padding: 10px;
   }
 }
+.testcase-container { display: flex; gap: 20px; height: 500px; }
+.testcase-list { width: 300px; background: #f8f9fa; border-radius: 8px; padding: 15px; overflow-y: auto; }
+.testcase-item { padding: 10px; margin: 5px 0; border-radius: 5px; cursor: pointer; border-left: 4px solid transparent; transition: all 0.3s; }
+.testcase-item:hover { background: #e9ecef; }
+.testcase-item.active { background: #e3f2fd; border-left-color: #1976d2; }
+.testcase-item.pass { border-left-color: #28a745; }
+.testcase-item.fail { border-left-color: #dc3545; }
+.testcase-id { font-weight: bold; font-size: 14px; }
+.testcase-status { font-size: 12px; margin-top: 2px; }
+.testcase-details { flex: 1; background: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; }
+.detail-row { margin: 15px 0; }
+.detail-label { font-weight: bold; color: #666; margin-bottom: 5px; }
+.detail-value { font-size: 16px; }
+.status-badge { padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 12px; }
+.status-badge.pass { background: #d4edda; color: #155724; }
+.status-badge.fail { background: #f8d7da; color: #721c24; }
 </style>
 </head>
 <body>
@@ -155,7 +171,7 @@ th {
                 <div class="header-center">
                     <h3>Test Execution Report</h3>
                 </div>
-                <div class="timestamp">2025-10-29 00:28:48</div>
+                <div class="timestamp">2025-10-29 00:37:45</div>
             </div>
         </div>
         
@@ -204,7 +220,7 @@ th {
                                 <td>100.0%</td>
                             </tr>
                             <tr>
-                                <td>Alice Davis</td>
+                                <td>Sarah Wilson</td>
                                 <td>1</td>
                                 <td class="status-pass">1</td>
                                 <td class="status-fail">0</td>
@@ -218,13 +234,6 @@ th {
                                 <td>100.0%</td>
                             </tr>
                             <tr>
-                                <td>Jane Smith</td>
-                                <td>1</td>
-                                <td class="status-pass">0</td>
-                                <td class="status-fail">1</td>
-                                <td>0.0%</td>
-                            </tr>
-                            <tr>
                                 <td>Tom Brown</td>
                                 <td>1</td>
                                 <td class="status-pass">0</td>
@@ -232,11 +241,18 @@ th {
                                 <td>0.0%</td>
                             </tr>
                             <tr>
-                                <td>Sarah Wilson</td>
+                                <td>Alice Davis</td>
                                 <td>1</td>
                                 <td class="status-pass">1</td>
                                 <td class="status-fail">0</td>
                                 <td>100.0%</td>
+                            </tr>
+                            <tr>
+                                <td>Jane Smith</td>
+                                <td>1</td>
+                                <td class="status-pass">0</td>
+                                <td class="status-fail">1</td>
+                                <td>0.0%</td>
                             </tr>
                         </tbody>
                     </table>
@@ -244,85 +260,107 @@ th {
             </div>
             
             <div id="testcases" class="tab-content hidden">
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Test ID</th>
-                                <th>Test Name</th>
-                                <th>Description</th>
-                                <th>Author</th>
-                                <th>Status</th>
-                                <th>Validation</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>TC001</td>
-                                <td>Login Test</td>
-                                <td>Verify user login functionality</td>
-                                <td>John Doe</td>
-                                <td class="status-pass">PASS</td>
-                                <td>username_field_visible</td>
-                            </tr>
-                            <tr>
-                                <td>TC002</td>
-                                <td>Password Reset</td>
-                                <td>Test password reset flow</td>
-                                <td>Jane Smith</td>
-                                <td class="status-fail">FAIL</td>
-                                <td>email_sent_confirmation</td>
-                            </tr>
-                            <tr>
-                                <td>TC003</td>
-                                <td>Dashboard Load</td>
-                                <td>Check dashboard loading time</td>
-                                <td>Mike Johnson</td>
-                                <td class="status-pass">PASS</td>
-                                <td>load_time_under_3s</td>
-                            </tr>
-                            <tr>
-                                <td>TC004</td>
-                                <td>User Registration</td>
-                                <td>Test new user signup</td>
-                                <td>Sarah Wilson</td>
-                                <td class="status-pass">PASS</td>
-                                <td>registration_success</td>
-                            </tr>
-                            <tr>
-                                <td>TC005</td>
-                                <td>API Response</td>
-                                <td>Validate API response format</td>
-                                <td>Tom Brown</td>
-                                <td class="status-fail">FAIL</td>
-                                <td>json_schema_valid</td>
-                            </tr>
-                            <tr>
-                                <td>TC006</td>
-                                <td>Navigation Test</td>
-                                <td>Test menu navigation</td>
-                                <td>Alice Davis</td>
-                                <td class="status-pass">PASS</td>
-                                <td>all_links_working</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="testcase-container">
+                    <div class="testcase-list">
+                        <div class="testcase-item pass active" id="item-TC001" onclick="selectTestcase('TC001', 'Login Test', 'John Doe', 'Verify user login functionality', 'pass', 'username_field_visible')">
+                            <div class="testcase-id">TC001</div>
+                            <div class="testcase-status status-pass">PASS</div>
+                        </div>
+                        <div class="testcase-item fail " id="item-TC002" onclick="selectTestcase('TC002', 'Password Reset', 'Jane Smith', 'Test password reset flow', 'fail', 'email_sent_confirmation')">
+                            <div class="testcase-id">TC002</div>
+                            <div class="testcase-status status-fail">FAIL</div>
+                        </div>
+                        <div class="testcase-item pass " id="item-TC003" onclick="selectTestcase('TC003', 'Dashboard Load', 'Mike Johnson', 'Check dashboard loading time', 'pass', 'load_time_under_3s')">
+                            <div class="testcase-id">TC003</div>
+                            <div class="testcase-status status-pass">PASS</div>
+                        </div>
+                        <div class="testcase-item pass " id="item-TC004" onclick="selectTestcase('TC004', 'User Registration', 'Sarah Wilson', 'Test new user signup', 'pass', 'registration_success')">
+                            <div class="testcase-id">TC004</div>
+                            <div class="testcase-status status-pass">PASS</div>
+                        </div>
+                        <div class="testcase-item fail " id="item-TC005" onclick="selectTestcase('TC005', 'API Response', 'Tom Brown', 'Validate API response format', 'fail', 'json_schema_valid')">
+                            <div class="testcase-id">TC005</div>
+                            <div class="testcase-status status-fail">FAIL</div>
+                        </div>
+                        <div class="testcase-item pass " id="item-TC006" onclick="selectTestcase('TC006', 'Navigation Test', 'Alice Davis', 'Test menu navigation', 'pass', 'all_links_working')">
+                            <div class="testcase-id">TC006</div>
+                            <div class="testcase-status status-pass">PASS</div>
+                        </div>
+                    </div>
+                    <div class="testcase-details" id="testcase-details">
+                        <div class="detail-row">
+                            <div class="detail-label">Test Case ID</div>
+                            <div class="detail-value">TC001</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Test Case Name</div>
+                            <div class="detail-value">Login Test</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Author</div>
+                            <div class="detail-value">John Doe</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Description</div>
+                            <div class="detail-value">Verify user login functionality</div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Status</div>
+                            <div class="detail-value"><span class="status-badge pass">PASS</span></div>
+                        </div>
+                        <div class="detail-row">
+                            <div class="detail-label">Validation Parameter</div>
+                            <div class="detail-value">username_field_visible</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
     
-    <script>
-        function showTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.getElementById(tabName).classList.remove('hidden');
-            document.querySelector('[onclick="showTab(\''+tabName+'\')"]').classList.add('active');
-        }
+    <script>function showTab(tabName) {
+    document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+    document.getElementById(tabName).classList.remove('hidden');
+    document.querySelector(`[onclick="showTab('${tabName}')"]`).classList.add('active');
+}
 
-        document.addEventListener('DOMContentLoaded', function() {
-            showTab('summary');
-        });
-    </script>
+function selectTestcase(testId, testName, author, description, status, validation) {
+    document.querySelectorAll('.testcase-item').forEach(item => item.classList.remove('active'));
+    document.getElementById('item-' + testId).classList.add('active');
+    
+    const statusClass = status.toLowerCase() === 'pass' ? 'pass' : 'fail';
+    document.getElementById('testcase-details').innerHTML = `
+        <div class="detail-row">
+            <div class="detail-label">Test Case ID</div>
+            <div class="detail-value">${testId}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Test Case Name</div>
+            <div class="detail-value">${testName}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Author</div>
+            <div class="detail-value">${author}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Description</div>
+            <div class="detail-value">${description}</div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Status</div>
+            <div class="detail-value"><span class="status-badge ${statusClass}">${status.toUpperCase()}</span></div>
+        </div>
+        <div class="detail-row">
+            <div class="detail-label">Validation Parameter</div>
+            <div class="detail-value">${validation}</div>
+        </div>
+    `;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    showTab('summary');
+});
+</script>
 </body>
 </html>
