@@ -1,0 +1,7 @@
+testcase_name,testcase_id,description,author,status,validation_parameter
+Login Test,TC001,Verify user login functionality,John Doe,pass,username_field_visible
+Password Reset,TC002,Test password reset flow,Jane Smith,fail,email_sent_confirmation
+Dashboard Load,TC003,Check dashboard loading time,Mike Johnson,pass,load_time_under_3s
+User Registration,TC004,Test new user signup,Sarah Wilson,pass,registration_success
+API Response,TC005,Validate API response format,Tom Brown,fail,json_schema_valid
+Navigation Test,TC006,Test menu navigation,Alice Davis,pass,all_links_working

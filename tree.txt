@@ -1,0 +1,52 @@
+├── README.md
+├── config
+│   ├── __init__.py
+│   ├── database_manager.py
+│   └── settings.py
+├── core
+│   ├── __init__.py
+│   ├── models.py
+│   ├── signals.py
+│   └── tenant_models.py
+├── main.py
+├── pos_app.db
+├── pyproject.toml
+├── tests
+│   ├── __init__.py
+│   └── test_models.py
+├── ui
+│   ├── .DS_Store
+│   ├── __init__.py
+│   ├── assets
+│   │   ├── logo_.png
+│   │   ├── logo_crop.png
+│   │   └── logo_png.png
+│   ├── client_login_window.py
+│   ├── components
+│   │   ├── __init__.py
+│   │   ├── category_tab.py
+│   │   ├── inventory_tab.py
+│   │   ├── product_tab.py
+│   │   ├── sale_tab.py
+│   │   ├── settings_tab.py
+│   │   ├── supplier_tab.py
+│   │   └── user_tab.py
+│   ├── login_window.py
+│   ├── main_window.py
+│   └── styles
+│       ├── __init__.py
+│       ├── base.css
+│       ├── buttons.css
+│       ├── forms.css
+│       ├── inputs.css
+│       ├── tables.css
+│       ├── tabs.css
+│       ├── themes
+│       │   ├── dark.css
+│       │   └── light.css
+│       └── widgets.css
+├── utils
+│   ├── __init__.py
+│   ├── hardware.py
+│   └── validators.py
+└── uv.lock

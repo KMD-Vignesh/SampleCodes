@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Report</title>
+    <link rel="icon" type="image/x-icon" href="https://login.zscloud.net/__zsig/f167WqMcrS45r">
+    <style>* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f5f7fa;
+  color: #333;
+}
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+.header {
+  background: #009879;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header-center {
+  flex: 1;
+  text-align: center;
+}
+.logo {
+  margin-right: 15px;
+  vertical-align: middle;
+  border: thick solid #ffffff;
+  border-radius: 5px;
+  width: 80px;
+  height: 35px;
+}
+.timestamp {
+  font-size: 14px;
+  opacity: 0.9;
+}
+.tabs {
+  display: flex;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+.tab {
+  flex: 1;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s;
+}
+.tab.active {
+   background: #c2c7c6;
+  border-color: #009879;
+}
+.tab:hover {
+  background: #e7eaea;
+  border-color: #009879;
+}
+.content {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+.hidden {
+  display: none;
+}
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+.stat-card {
+  background: #e3f2fd;
+  color: #1976d2;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid #bbdefb;
+}
+.stat-card.pass {
+  background: #e8f5e8;
+  color: #2e7d32;
+  border-color: #c8e6c9;
+}
+.stat-card.fail {
+  background: #ffebee;
+  color: #d32f2f;
+  border-color: #ffcdd2;
+}
+.stat-number {
+  font-size: 2em;
+  font-weight: bold;
+}
+.table-container {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  min-width: 600px;
+}
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+th {
+  background: #c2c7c6;
+  font-weight: 600;
+}
+.status-pass {
+  color: #28a745;
+  font-weight: bold;
+}
+.status-fail {
+  color: #dc3545;
+  font-weight: bold;
+}
+@media (max-width: 768px) {
+  th,
+  td {
+    padding: 8px;
+    font-size: 14px;
+  }
+  .container {
+    padding: 10px;
+  }
+}
+</style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <img src="https://login.zscloud.net/__zsig/f167WqMcrS45r" alt="Logo" class="logo">
+                <div class="header-center">
+                    <h3>Test Execution Report</h3>
+                </div>
+                <div class="timestamp">2025-10-29 00:28:48</div>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" onclick="showTab('summary')">Summary</div>
+            <div class="tab" onclick="showTab('testcases')">Test Cases</div>
+        </div>
+        
+        <div class="content">
+            <div id="summary" class="tab-content">
+                <div class="summary-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">6</div>
+                        <div>Total Tests</div>
+                    </div>
+                    <div class="stat-card pass">
+                        <div class="stat-number">4</div>
+                        <div>Passed</div>
+                    </div>
+                    <div class="stat-card fail">
+                        <div class="stat-number">2</div>
+                        <div>Failed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">66.7%</div>
+                        <div>Pass Rate</div>
+                    </div>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Author</th>
+                                <th>Total Tests</th>
+                                <th>Passed</th>
+                                <th>Failed</th>
+                                <th>Pass Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>John Doe</td>
+                                <td>1</td>
+                                <td class="status-pass">1</td>
+                                <td class="status-fail">0</td>
+                                <td>100.0%</td>
+                            </tr>
+                            <tr>
+                                <td>Alice Davis</td>
+                                <td>1</td>
+                                <td class="status-pass">1</td>
+                                <td class="status-fail">0</td>
+                                <td>100.0%</td>
+                            </tr>
+                            <tr>
+                                <td>Mike Johnson</td>
+                                <td>1</td>
+                                <td class="status-pass">1</td>
+                                <td class="status-fail">0</td>
+                                <td>100.0%</td>
+                            </tr>
+                            <tr>
+                                <td>Jane Smith</td>
+                                <td>1</td>
+                                <td class="status-pass">0</td>
+                                <td class="status-fail">1</td>
+                                <td>0.0%</td>
+                            </tr>
+                            <tr>
+                                <td>Tom Brown</td>
+                                <td>1</td>
+                                <td class="status-pass">0</td>
+                                <td class="status-fail">1</td>
+                                <td>0.0%</td>
+                            </tr>
+                            <tr>
+                                <td>Sarah Wilson</td>
+                                <td>1</td>
+                                <td class="status-pass">1</td>
+                                <td class="status-fail">0</td>
+                                <td>100.0%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div id="testcases" class="tab-content hidden">
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test ID</th>
+                                <th>Test Name</th>
+                                <th>Description</th>
+                                <th>Author</th>
+                                <th>Status</th>
+                                <th>Validation</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TC001</td>
+                                <td>Login Test</td>
+                                <td>Verify user login functionality</td>
+                                <td>John Doe</td>
+                                <td class="status-pass">PASS</td>
+                                <td>username_field_visible</td>
+                            </tr>
+                            <tr>
+                                <td>TC002</td>
+                                <td>Password Reset</td>
+                                <td>Test password reset flow</td>
+                                <td>Jane Smith</td>
+                                <td class="status-fail">FAIL</td>
+                                <td>email_sent_confirmation</td>
+                            </tr>
+                            <tr>
+                                <td>TC003</td>
+                                <td>Dashboard Load</td>
+                                <td>Check dashboard loading time</td>
+                                <td>Mike Johnson</td>
+                                <td class="status-pass">PASS</td>
+                                <td>load_time_under_3s</td>
+                            </tr>
+                            <tr>
+                                <td>TC004</td>
+                                <td>User Registration</td>
+                                <td>Test new user signup</td>
+                                <td>Sarah Wilson</td>
+                                <td class="status-pass">PASS</td>
+                                <td>registration_success</td>
+                            </tr>
+                            <tr>
+                                <td>TC005</td>
+                                <td>API Response</td>
+                                <td>Validate API response format</td>
+                                <td>Tom Brown</td>
+                                <td class="status-fail">FAIL</td>
+                                <td>json_schema_valid</td>
+                            </tr>
+                            <tr>
+                                <td>TC006</td>
+                                <td>Navigation Test</td>
+                                <td>Test menu navigation</td>
+                                <td>Alice Davis</td>
+                                <td class="status-pass">PASS</td>
+                                <td>all_links_working</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabName).classList.remove('hidden');
+            document.querySelector('[onclick="showTab(\''+tabName+'\')"]').classList.add('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            showTab('summary');
+        });
+    </script>
+</body>
+</html>
